@@ -1,1 +1,1 @@
-C:\Users\metri\Projects\Tooth\app\target\debug\app.exe: C:\Users\metri\Projects\Tooth\app\src\main.rs
+/mnt/c/Users/metri/Projects/Tooth/AppRust/target/debug/app: /mnt/c/Users/metri/Projects/Tooth/AppRust/src/main.rs
