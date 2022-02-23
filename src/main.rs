@@ -1,8 +1,28 @@
 use std::env;
 //use std::fs;
 
+enum Argument_primary_type {
+    Time,
+    Notime,
+    Info
+}
+
+enum Argument_secundary_type {
+    Dir,
+    Show,
+}
+
+struct Arguments {
+    primary_type: Argument_primary_type,
+    secundary_type: Argument_secundary_type,
+    extra_type: Argument_secundary_type,
+    time_atr: u16,
+    dir_atr: String,
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
+    args.remove(0); 
     parse_config(&args); 
 
     /* 
