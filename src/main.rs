@@ -1,4 +1,5 @@
 use std::{env, num::ParseIntError};
+use clap::{Arg, Command};
 //use std::fs;
 enum Argument_primary_type {
     Time,
@@ -38,30 +39,33 @@ fn parse_config(args: &[String]) -> Argument {
     let time_atr = 0;
     let dir_atr = ruta;
 
-
-    println!("VECTOR: {:?} ",args);
-
-    for i in args {
-        if i.as_str() == "time" {
-            println!("argumento time 🤠");
-        }
-        if i.as_str() == "notime" {
-            println!("argumento notime 🤑");
-        }
-        if i.as_str() == "dir" {
-            println!("argumento time 📝");
-        }
-   
-        
-    }
-     
-    let arguments = Argument{
+    let mut arguments = Argument{
         primary_type: primary_type,
         secundary_type: secundary_type,
         extra_type: extra_type,
         time_atr: time_atr,
         dir_atr: dir_atr,
     };
+
+    println!("VECTOR: {:?} ",args);
+
+    for i in args {
+        if i.as_str() == "time" {
+            arguments.primary_type = Argument_primary_type::Time;
+            println!("argumento time 🤠");
+        }
+        if i.as_str() == "notime" {
+            arguments.primary_type = Argument_primary_type::Notime;
+            println!("argumento notime 🤑");
+        }
+        if i.as_str() == "info" {
+            arguments.primary_type = Argument_primary_type::Info;
+            println!("argumento time 📝");
+        }
+        
+        
+    }
+    
 
     arguments
     
