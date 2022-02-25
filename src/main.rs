@@ -22,13 +22,109 @@ struct Argument {
 }
 
 fn main() {
+    let matches = Command::new("tooth")
+        .about("software activity register")
+        .version("0.0.1")
+        .subcommand_required(true)
+        .arg_required_else_help(true)
+        .author("Tooth Development Team")
+        // Query subcommand
+        //
+        // Only a few of its arguments are implemented below.
+        .subcommand(
+            Command::new("time")
+                .short_flag('t')
+                .long_flag("time")
+                .about("Define the time that Tooth will be working.")
+                .arg(
+                    Arg::new("dir")
+                        .short('d')
+                        .long("dir")
+                       //.conflicts_with("info")
+                        .takes_value(true)
+                        .multiple_values(true)
+                        .help("specifies the registry file direction"),
+                )
+                .arg(
+                    Arg::new("show")
+                        .short('s')
+                        .long("show")
+                        //.conflicts_with("info")
+                        //.takes_value(false)
+                        //.multiple_values(true)
+                        .help("show the process in real time"),
+                )
+        )
+        // Sync subcommand
+        //
+        // Only a few of its arguments are implemented below.
+        .subcommand(
+            Command::new("notime")
+                .short_flag('n')
+                .long_flag("notime")
+                .about("Init the anaylis without time limit.")
+                .arg(
+                    Arg::new("dir")
+                        .short('d')
+                        .long("dir")
+                       //.conflicts_with("info")
+                        .takes_value(true)
+                        //.multiple_values(true)
+                        .help("specifies the registry file direction"),
+                )
+                .arg(
+                    Arg::new("show")
+                        .short('s')
+                        .long("show")
+                        //.conflicts_with("info")
+                        //.takes_value(false)
+                        //.multiple_values(true)
+                        .help("show the process in real time"),
+                )
+        )
 
-    let mut args: Vec<String> = env::args().collect();
-    args.remove(0);
-   
-    parse_config(&args); 
-}
+        .subcommand(
+            Command::new("info")
+                .short_flag('i')
+                .long_flag("info")
+                .about("Show general info about the configuration.")
+        )
+    .get_matches();
+    
+    match matches.subcommand() {
+        Some(("time", time_matches)) => {
+            // argumentos secundarios
+            if time_matches.is_present("dir") {
+                let direction: String = time_matches.value_of("dir").unwrap().to_string(); //cambiar porque solo es una direccion
+                println!("Making registry in {} ✍️ ", direction);
+                return;
+            }
+            if time_matches.is_present("show") {
+                println!("Showing process ...");
+            }
 
+            let tiempo_activo: u16 = time_matches.value_of("time").unwrap().parse();
+            println!("Recolecting info along {} minutes", tiempo_activo);
+
+           
+        }
+        Some(("query", query_matches)) => {
+            if let Some(packages) = query_matches.values_of("info") {
+                let comma_sep = packages.collect::<Vec<_>>().join(", ");
+                println!("Retrieving info for {}...", comma_sep);
+            } else if let Some(queries) = query_matches.values_of("search") {
+                let comma_sep = queries.collect::<Vec<_>>().join(", ");
+                println!("Searching Locally for {}...", comma_sep);
+            } else {
+                println!("Displaying all locally installed packages...");
+            }
+        }
+        _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
+    }
+
+}  
+
+/* 
 fn parse_config(args: &[String]) -> Argument {
 
     let ruta = String::from("C:/Users/Juan/Projects/Tooth/AppRust");
@@ -70,4 +166,4 @@ fn parse_config(args: &[String]) -> Argument {
     arguments
     
 }
-
+*/
