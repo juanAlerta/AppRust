@@ -103,8 +103,18 @@ fn main() {
                 println!("Showing process ...");
             }
 
-            let tiempo_activo: u16 = time_matches.value_of("time").unwrap().parse();
-            println!("Recolecting info along {} minutes", tiempo_activo);
+           // argumento principal
+            let tiempo_activo = matches.value_of("time");
+            match tiempo_activo {
+                None => println!("☹️ No active time indicated ☹️"),
+                Some(s) => {
+                    match s.parse::<u16>() {
+                    Ok(n) => println!("starting registry for {} along",n),
+                    Err(_) => println!("☹️ No valid format. Expected Integer ☹️"),
+                    }
+                }
+            }
+           
 
            
         }
