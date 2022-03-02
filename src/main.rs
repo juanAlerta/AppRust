@@ -109,8 +109,8 @@ fn main() {
                 None => println!("☹️ No active time indicated ☹️"),
                 Some(s) => {
                     match s.parse::<u16>() {
-                    Ok(n) => println!("starting registry for {} along",n),
-                    Err(_) => println!("☹️ No valid format. Expected Integer ☹️"),
+                        Ok(n) => println!("starting registry for {} along",n),
+                        Err(_) => println!("☹️ No valid format. Expected Integer ☹️"),
                     }
                 }
             }
