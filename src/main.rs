@@ -28,6 +28,39 @@ fn main() {
         .subcommand_required(true)
         .arg_required_else_help(true)
         .author("Tooth Development Team")
+        // time
+        .arg(Arg::with_name("time")
+            .short('t')
+            .long("time")
+            .takes_value(false)
+            .help("Define the time that Tooth will be working.")
+            .arg(
+                Arg::new("dir")
+                    .short('d')
+                    .long("dir") 
+                   //.conflicts_with("info")
+                    .takes_value(true)
+                    .multiple_values(true)
+                    .help("specifies the registry file direction"),
+            )
+            .arg(
+                Arg::new("show")
+                    .short('s')
+                    .long("show")
+                    //.conflicts_with("info")
+                    //.takes_value(false)
+                    //.multiple_values(true)
+                    .help("show the process in real time"),
+            )
+        )  
+
+        .arg(Arg::with_name("info")
+            .short('i')
+            .long("info")
+            .help("Show info about the config.")
+            
+            
+        )
         // Query subcommand
         //
         // Only a few of its arguments are implemented below.
@@ -36,24 +69,7 @@ fn main() {
                 .short_flag('t')
                 .long_flag("time")
                 .about("Define the time that Tooth will be working.")
-                .arg(
-                    Arg::new("dir")
-                        .short('d')
-                        .long("dir")
-                       //.conflicts_with("info")
-                        .takes_value(true)
-                        .multiple_values(true)
-                        .help("specifies the registry file direction"),
-                )
-                .arg(
-                    Arg::new("show")
-                        .short('s')
-                        .long("show")
-                        //.conflicts_with("info")
-                        //.takes_value(false)
-                        //.multiple_values(true)
-                        .help("show the process in real time"),
-                )
+                
         )
         // Sync subcommand
         //
