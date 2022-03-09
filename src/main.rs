@@ -29,11 +29,19 @@ fn main() {
         .allow_external_subcommands(true)
         .allow_invalid_utf8_for_external_subcommands(true)
         .subcommand(
+            // time
             Command::new("time")
                 .short_flag('t')
                 .about("Define the time that the application will be doing the registry, or use <notime>")
                 .arg(arg!(<UNIDAD_TIEMPO> "The time required"))
-                .arg_required_else_help(true),
+                .arg_required_else_help(true)
+                .arg(
+                Arg::new("dir")
+                    .short('d')
+                    .help("Define the file path.")
+                    //.arg(arg!(<RUTA> "Direction"))
+                    .takes_value(true),
+                )
         )
         .subcommand(
             Command::new("notime")
@@ -51,11 +59,20 @@ fn main() {
         Some(("time", time_matches)) => {
             let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
             // validar tipo
-            println!("Starting registry for {} seconds along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
-
+            println!("✍️ Starting registry for {} seconds along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
+            
+            //////////////////////////////////////////////////////
+            if time_matches.is_present("dir") {
+                let direccion: Vec<_> = time_matches.values_of("dir").unwrap().collect();
+                let values = direccion.join(", ");
+                println!("🤓 Saving data in {} 🤓", values);
+                return;
+            }
+            ///////////////////////////////////////////
                 
         }
 
+        
       
         _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
     }
