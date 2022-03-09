@@ -1,5 +1,5 @@
 use std::{env, num::ParseIntError};
-use clap::{Arg, Command};
+use clap::{Arg, Command, arg};
 //use std::fs;
 enum Argument_primary_type {
     Time,
@@ -23,53 +23,40 @@ struct Argument {
 
 fn main() {
     let matches = Command::new("tooth")
-        .about("software activity register")
-        .version("0.0.1")
+        .about("Informacion del programa")
         .subcommand_required(true)
         .arg_required_else_help(true)
-        .author("Tooth Development Team")
-        // time
-        .arg(Arg::with_name("time")
-            .short('t')
-            .long("time")
-            .takes_value(false)
-            .help("Define the time that Tooth will be working.")
-            
-        )  
-
-        .arg(Arg::with_name("info")
-            .short('i')
-            .long("info")
-            .help("Show info about the config.")
-            
-            
+        .allow_external_subcommands(true)
+        .allow_invalid_utf8_for_external_subcommands(true)
+        .subcommand(
+            Command::new("time")
+                .short_flag('t')
+                .about("Define the time that the application will be doing the registry, or use <notime>")
+                .arg(arg!(<UNIDAD_TIEMPO> "The time required"))
+                .arg_required_else_help(true),
         )
-        // Query subcommand
-        //
-        // Only a few of its arguments are implemented below.
-        
-    .get_matches();
+        .subcommand(
+            Command::new("notime")
+                .short_flag('n')
+                .about("Start registry with no time limit"), 
+        )
+        .subcommand(
+            Command::new("info")
+                .short_flag('i')
+                .about("show general info")
+        )
+        .get_matches();
     
     match matches.subcommand() {
         Some(("time", time_matches)) => {
+            let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
+            // validar tipo
+            println!("Starting registry for {} seconds along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
 
-            let tiempo_activo = matches.value_of("time");
-            match tiempo_activo {
-                None => println!("☹️ No active time indicated ☹️"),
-                Some(s) => {
-                    match s.parse::<u16>() {
-                        Ok(n) => println!("starting registry for {} along",n),
-                        Err(_) => println!("☹️ No valid format. Expected Integer ☹️"),
-                    }
-                }
-            }       
+                
         }
 
-        Some(("info", time_matches)) => {
-
-            println!("Esta es la info 🧐🧐🧐🧐🧐🧐🧐🧐 ");
-        }
-       
+      
         _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
     }
 
