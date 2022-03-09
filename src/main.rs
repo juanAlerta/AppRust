@@ -34,24 +34,7 @@ fn main() {
             .long("time")
             .takes_value(false)
             .help("Define the time that Tooth will be working.")
-            .arg(
-                Arg::new("dir")
-                    .short('d')
-                    .long("dir") 
-                   //.conflicts_with("info")
-                    .takes_value(true)
-                    .multiple_values(true)
-                    .help("specifies the registry file direction"),
-            )
-            .arg(
-                Arg::new("show")
-                    .short('s')
-                    .long("show")
-                    //.conflicts_with("info")
-                    //.takes_value(false)
-                    //.multiple_values(true)
-                    .help("show the process in real time"),
-            )
+            
         )  
 
         .arg(Arg::with_name("info")
@@ -64,62 +47,12 @@ fn main() {
         // Query subcommand
         //
         // Only a few of its arguments are implemented below.
-        .subcommand(
-            Command::new("time")
-                .short_flag('t')
-                .long_flag("time")
-                .about("Define the time that Tooth will be working.")
-                
-        )
-        // Sync subcommand
-        //
-        // Only a few of its arguments are implemented below.
-        .subcommand(
-            Command::new("notime")
-                .short_flag('n')
-                .long_flag("notime")
-                .about("Init the anaylis without time limit.")
-                .arg(
-                    Arg::new("dir")
-                        .short('d')
-                        .long("dir")
-                       //.conflicts_with("info")
-                        .takes_value(true)
-                        //.multiple_values(true)
-                        .help("specifies the registry file direction"),
-                )
-                .arg(
-                    Arg::new("show")
-                        .short('s')
-                        .long("show")
-                        //.conflicts_with("info")
-                        //.takes_value(false)
-                        //.multiple_values(true)
-                        .help("show the process in real time"),
-                )
-        )
-
-        .subcommand(
-            Command::new("info")
-                .short_flag('i')
-                .long_flag("info")
-                .about("Show general info about the configuration.")
-        )
+        
     .get_matches();
     
     match matches.subcommand() {
         Some(("time", time_matches)) => {
-            // argumentos secundarios
-            if time_matches.is_present("dir") {
-                let direction: String = time_matches.value_of("dir").unwrap().to_string(); //cambiar porque solo es una direccion
-                println!("Making registry in {} ✍️ ", direction);
-                return;
-            }
-            if time_matches.is_present("show") {
-                println!("Showing process ...");
-            }
 
-           // argumento principal
             let tiempo_activo = matches.value_of("time");
             match tiempo_activo {
                 None => println!("☹️ No active time indicated ☹️"),
@@ -129,22 +62,14 @@ fn main() {
                         Err(_) => println!("☹️ No valid format. Expected Integer ☹️"),
                     }
                 }
-            }
-           
+            }       
+        }
 
-           
+        Some(("info", time_matches)) => {
+
+            println!("Esta es la info 🧐🧐🧐🧐🧐🧐🧐🧐 ");
         }
-        Some(("query", query_matches)) => {
-            if let Some(packages) = query_matches.values_of("info") {
-                let comma_sep = packages.collect::<Vec<_>>().join(", ");
-                println!("Retrieving info for {}...", comma_sep);
-            } else if let Some(queries) = query_matches.values_of("search") {
-                let comma_sep = queries.collect::<Vec<_>>().join(", ");
-                println!("Searching Locally for {}...", comma_sep);
-            } else {
-                println!("Displaying all locally installed packages...");
-            }
-        }
+       
         _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
     }
 
