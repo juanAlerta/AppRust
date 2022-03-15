@@ -39,9 +39,9 @@ fn main() {
                 Arg::new("dir")
                     .short('d')
                     .help("Define the file path.")
-                    //.arg(arg!(<RUTA> "Direction"))
+                    .arg(arg!(<RUTA> "Direction"))
                     .takes_value(true),
-                )
+                ) 
         )
         .subcommand(
             Command::new("notime")
@@ -72,6 +72,13 @@ fn main() {
                 
         }
 
+        Some(("notime", cosa)) => { //time_matches porque me pide una tupla, pero no hace nada
+            println!("✍️ Starting registry with no time limit ✍️");
+        }
+
+        Some(("info", cosa)) => { //time_matches porque me pide una tupla, pero no hace nada
+            println!("INFORMACION GENERAL");
+        }
         
       
         _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
@@ -79,46 +86,3 @@ fn main() {
 
 }  
 
-/* 
-fn parse_config(args: &[String]) -> Argument {
-
-    let ruta = String::from("C:/Users/Juan/Projects/Tooth/AppRust");
-
-    let primary_type = Argument_primary_type::Time;
-    let secundary_type = Argument_secundary_type::Zero;
-    let extra_type = Argument_secundary_type::Zero;
-    let time_atr = 0;
-    let dir_atr = ruta;
-
-    let mut arguments = Argument{
-        primary_type: primary_type,
-        secundary_type: secundary_type,
-        extra_type: extra_type,
-        time_atr: time_atr,
-        dir_atr: dir_atr,
-    };
-
-    println!("VECTOR: {:?} ",args);
-
-    for i in args {
-        if i.as_str() == "time" {
-            arguments.primary_type = Argument_primary_type::Time;
-            println!("argumento time 🤠");
-        }
-        if i.as_str() == "notime" {
-            arguments.primary_type = Argument_primary_type::Notime;
-            println!("argumento notime 🤑");
-        }
-        if i.as_str() == "info" {
-            arguments.primary_type = Argument_primary_type::Info;
-            println!("argumento time 📝");
-        }
-        
-        
-    }
-    
-
-    arguments
-    
-}
-*/
