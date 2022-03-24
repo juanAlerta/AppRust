@@ -1,12 +1,12 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
-//use std::fs;
+
+// de momento no uso los enum
 enum Argument_primary_type {
     Time,
     Notime,
     Info
 }
-
 enum Argument_secundary_type {
     Dir,
     Show,
@@ -22,8 +22,11 @@ struct Argument {
 }
 
 fn main() {
+
+    
+
     let matches = Command::new("tooth")
-        .about("Informacion del programa")
+        .about("Tooth is a forensic computer analysis wich notes the programs running on your operative system.\nDocumentation: https://github.com/juanAlerta/AppRust")
         .subcommand_required(true)
         .arg_required_else_help(true)
         .allow_external_subcommands(true)
@@ -35,13 +38,13 @@ fn main() {
                 .about("Define the time that the application will be doing the registry, or use <notime>")
                 .arg(arg!(<UNIDAD_TIEMPO> "The time required"))
                 .arg_required_else_help(true)
-                .arg(
+                /* .arg(
                 Arg::new("dir")
                     .short('d')
                     .help("Define the file path.")
                     .arg(arg!(<RUTA> "Direction"))
                     .takes_value(true),
-                ) 
+                ) */
         )
         .subcommand(
             Command::new("notime")
@@ -60,29 +63,25 @@ fn main() {
             let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
             // validar tipo
             println!("✍️ Starting registry for {} seconds along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
-            
-            //////////////////////////////////////////////////////
+
+            /*
             if time_matches.is_present("dir") {
                 let direccion: Vec<_> = time_matches.values_of("dir").unwrap().collect();
                 let values = direccion.join(", ");
                 println!("🤓 Saving data in {} 🤓", values);
                 return;
-            }
-            ///////////////////////////////////////////
-                
+            }*/ 
         }
 
-        Some(("notime", cosa)) => { //time_matches porque me pide una tupla, pero no hace nada
+        Some(("notime", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
             println!("✍️ Starting registry with no time limit ✍️");
         }
 
-        Some(("info", cosa)) => { //time_matches porque me pide una tupla, pero no hace nada
-            println!("INFORMACION GENERAL");
+        Some(("info", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
+            println!("<INFORMACION GENERAL>");
         }
         
-      
-        _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable
+        _ => unreachable!(), 
     }
-
 }  
 
