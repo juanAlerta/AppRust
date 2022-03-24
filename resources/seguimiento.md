@@ -12,4 +12,7 @@ El sistema sigue una especie de patrón ***modelo - vista - controlador***.
 ### 1.1.- Vista
 La vista corresponde a la aplicación de escritorio que se ejecuta en una terminal, introduciendo los parámetros requeridos, de igual manera que otras herramientas del ámbito forense y de la ciberseguridad.
 
-Está desarrollado en **Rust** y hace uso de la API **clap** (https://github.com/clap-rs/clap) que parsea los argumentos pasados y sus valores y estandariza este proceso.
+Está desarrollado en **Rust** y hace uso de la API **clap** (https://github.com/clap-rs/clap) que parsea los argumentos pasados y sus valores y estandariza este proceso. 
+
+La estructura básica de la aplicación ya está hecha, con los comandos básicos para poder probarse con el resto de subsistemas según se vayan desarrollando. Estos son 
+- time n --> requiere un número entero n. El sistema realizará el registro durante n minutos.
