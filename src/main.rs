@@ -53,7 +53,7 @@ fn main() {
         )
         .subcommand(
             Command::new("info")
-                .short_flag('i')
+                .short_flag('i') 
                 .about("show general info")
         )
         .get_matches();
@@ -62,7 +62,7 @@ fn main() {
         Some(("time", time_matches)) => {
             let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
             // validar tipo
-            println!("✍️ Starting registry for {} seconds along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
+            println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
 
             /*
             if time_matches.is_present("dir") {

@@ -1,5 +1,6 @@
 ## Seguimiento TFG - Juan Blanco Martín
-### 23/03/2022
+### 25/03/2022
+
 ---
 
 En este documento voy a introducir brévemente el estado en el que llevo el TFG.
@@ -115,7 +116,14 @@ fn main() {
     }
 }  
 ```
+![help](https://ibb.co/wB2MN0z)
+
+![args](https://ibb.co/hK4mHV5)
 
 Cuando se introducen los parámetros apropiados la **vista** devuelve al **controlador** un objeto con los requerimientos del usuario para realizar el registro, aunque aún no está implementado. 
 
-### 1.1.- Controlador
+### 1.2.- Controlador
+Aún sin implementar.
+
+### 1.2.- Modelo
+En busqueda de documentación.
