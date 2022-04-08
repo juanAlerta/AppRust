@@ -83,13 +83,6 @@ fn main() {
             println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
             println!("🐜 DEBUGGING -->  primary_type: 😒😒😒 , time_atr: {:?} 🐜", objeto_argumentos.time_atr);
 
-            /*
-            if time_matches.is_present("dir") {
-                let direccion: Vec<_> = time_matches.values_of("dir").unwrap().collect();
-                let values = direccion.join(", ");
-                println!("🤓 Saving data in {} 🤓", values);
-                return;
-            }*/ 
         }
 
         Some(("notime", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
