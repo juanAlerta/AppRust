@@ -1,1 +1,1 @@
-/home/juan/Documentos/AppRust/target/debug/app: /home/juan/Documentos/AppRust/src/main.rs
+C:\Users\Juan\Projects\Tooth\AppRust\target\debug\app.exe: C:\Users\Juan\Projects\Tooth\AppRust\src\main.rs

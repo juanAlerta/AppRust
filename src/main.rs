@@ -13,7 +13,8 @@ enum Argument_secundary_type {
     Zero
 }
 
-struct Argument {
+
+struct Argumento {
     primary_type: Argument_primary_type,
     secundary_type: Argument_secundary_type,
     extra_type: Argument_secundary_type,
@@ -23,7 +24,15 @@ struct Argument {
 
 fn main() {
 
-    
+    let mut default_dir = String::from("~/Desktop"); 
+
+    let mut objeto_argumentos = Argumento {
+        primary_type: Argument_primary_type::Notime,
+        secundary_type: Argument_secundary_type::Zero,
+        extra_type: Argument_secundary_type::Zero,
+        time_atr: 0,
+        dir_atr: default_dir,
+    };
 
     let matches = Command::new("tooth")
         .about("Tooth is a forensic computer analysis wich notes the programs running on your operative system.\nDocumentation: https://github.com/juanAlerta/AppRust")
@@ -58,11 +67,21 @@ fn main() {
         )
         .get_matches();
     
+        /* TODO:                                    */
+        /*  - meter sub argumentos de alguna forma  */
+        /*  - distinguir unos argumentos de otros   */
+        /*   - meter validaciones                   */
+        
+
     match matches.subcommand() {
         Some(("time", time_matches)) => {
             let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
-            // validar tipo
+            // - validar tipo
+
+            objeto_argumentos.primary_type = Argument_primary_type::Time;
+            objeto_argumentos.time_atr = unidad_tiempo;
             println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
+            println!("🐜 DEBUGGING -->  primary_type: 😒😒😒 , time_atr: {:?} 🐜", objeto_argumentos.time_atr);
 
             /*
             if time_matches.is_present("dir") {
