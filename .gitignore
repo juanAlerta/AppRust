@@ -30,7 +30,7 @@ Session.vim
 
 ## Configuration
 /config.toml
-/Makefile
+# /Makefile
 config.mk
 config.stamp
 no_llvm_build
@@ -78,3 +78,5 @@ src/test/rustdoc-gui/src/**.lock
 
 # Before adding new lines, see the comment at the top.
 target/.rustc_info.json
+
+target
