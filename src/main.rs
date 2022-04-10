@@ -71,7 +71,7 @@ fn main() {
         /* TODO:                                    */
         /*  - meter sub argumentos de alguna forma  */
         /*  - distinguir unos argumentos de otros   */
-        /*   - meter validaciones                   */
+        /*  - meter validaciones                   */
         
 
     match matches.subcommand() {
@@ -83,7 +83,6 @@ fn main() {
             objeto_argumentos.time_atr = unidad_tiempo;
             println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
             println!("🐜 DEBUGGING -->  primary_type: {:?} , time_atr: {:?} 🐜", objeto_argumentos.primary_type, objeto_argumentos.time_atr);
-
         }
 
         Some(("notime", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
