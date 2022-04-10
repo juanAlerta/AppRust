@@ -1,20 +1,21 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
 
-// de momento no uso los enum
+#[derive(Debug)]
 enum Argument_primary_type {
     Time,
     Notime,
     Info
 }
+#[derive(Debug)]
 enum Argument_secundary_type {
     Dir,
     Show,
     Zero
 }
 
-
-struct Argumento {
+#[derive(Debug)]
+pub struct Argumento {
     primary_type: Argument_primary_type,
     secundary_type: Argument_secundary_type,
     extra_type: Argument_secundary_type,
@@ -81,17 +82,20 @@ fn main() {
             objeto_argumentos.primary_type = Argument_primary_type::Time;
             objeto_argumentos.time_atr = unidad_tiempo;
             println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
-            println!("🐜 DEBUGGING -->  primary_type: 😒😒😒 , time_atr: {:?} 🐜", objeto_argumentos.time_atr);
+            println!("🐜 DEBUGGING -->  primary_type: {:?} , time_atr: {:?} 🐜", objeto_argumentos.primary_type, objeto_argumentos.time_atr);
 
         }
 
         Some(("notime", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
+            objeto_argumentos.primary_type = Argument_primary_type::Notime;
             println!("✍️ Starting registry with no time limit ✍️");
         }
 
         Some(("info", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
+            objeto_argumentos.primary_type = Argument_primary_type::Info;
             println!("<INFORMACION GENERAL>");
         }
+        
         
         _ => unreachable!(), 
     }
