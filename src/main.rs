@@ -68,10 +68,9 @@ fn main() {
         )
         .get_matches();
     
-        /* TODO:                                    */
+        /* TO DO:                                    */
         /*  - meter sub argumentos de alguna forma  */
-        /*  - distinguir unos argumentos de otros   */
-        /*  - meter validaciones                   */
+        /*  - validar tiempo                        */
         
 
     match matches.subcommand() {
