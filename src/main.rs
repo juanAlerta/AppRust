@@ -1,74 +1,101 @@
+use std::{env, num::ParseIntError};
+use clap::{Arg, Command, arg};
 
-use std::path::PathBuf;
+#[derive(Debug)]
+enum Argument_primary_type {
+    Time,
+    Notime,
+    Info
+}
+#[derive(Debug)]
+enum Argument_secundary_type {
+    Dir,
+    Show,
+    Zero
+}
 
-use clap::{arg, Command};
+#[derive(Debug)]
+pub struct Argumento {
+    primary_type: Argument_primary_type,
+    secundary_type: Argument_secundary_type,
+    extra_type: Argument_secundary_type,
+    time_atr: u16,
+    dir_atr: String,
+}
 
 fn main() {
-    let matches = Command::new("git")
-        .about("A fictional versioning CLI")
+
+    let mut default_dir = String::from("~/Desktop"); 
+
+    let mut objeto_argumentos = Argumento {
+        primary_type: Argument_primary_type::Notime,
+        secundary_type: Argument_secundary_type::Zero,
+        extra_type: Argument_secundary_type::Zero,
+        time_atr: 0,
+        dir_atr: default_dir,
+    };
+
+    let matches = Command::new("tooth")
+        .about("Tooth is a forensic computer analysis wich notes the programs running on your operative system.\nDocumentation: https://github.com/juanAlerta/AppRust")
         .subcommand_required(true)
         .arg_required_else_help(true)
         .allow_external_subcommands(true)
         .allow_invalid_utf8_for_external_subcommands(true)
         .subcommand(
-            Command::new("clone")
-                .about("Clones repos")
-                .arg(arg!(<REMOTE> "The remote to clone"))
-                .arg_required_else_help(true),
-        )
-        .subcommand(
-            Command::new("push")
-                .about("pushes things")
-                .arg(arg!(<REMOTE> "The remote to target"))
-                .arg_required_else_help(true),
-        )
-        .subcommand(
-            Command::new("add")
-                .about("adds things")
+            // time
+            Command::new("time")
+                .short_flag('t')
+                .about("Define the time that the application will be doing the registry, or use <notime>")
+                .arg(arg!(<UNIDAD_TIEMPO> "The time required"))
                 .arg_required_else_help(true)
-                .arg(arg!(<PATH> ... "Stuff to add").allow_invalid_utf8(true)),
+                /* .arg(
+                Arg::new("dir")
+                    .short('d')
+                    .help("Define the file path.")
+                    .arg(arg!(<RUTA> "Direction"))
+                    .takes_value(true),
+                ) */
+        )
+        .subcommand(
+            Command::new("notime")
+                .short_flag('n')
+                .about("Start registry with no time limit"), 
+        )
+        .subcommand(
+            Command::new("info")
+                .short_flag('i') 
+                .about("show general info")
         )
         .get_matches();
+    
+        /* TO DO:                                    */
+        /*  - meter sub argumentos de alguna forma  */
+        /*  - validar tiempo                        */
+        
 
     match matches.subcommand() {
-        Some(("clone", sub_matches)) => {
-            println!(
-                "Cloning {}",
-                sub_matches.value_of("REMOTE").expect("required")
-            );
-        }
-        Some(("push", sub_matches)) => {
-            println!(
-                "Pushing to {}",
-                sub_matches.value_of("REMOTE").expect("required")
-            );
-        }
-        Some(("add", sub_matches)) => {
-            let paths = sub_matches
-                .values_of_os("PATH")
-                .unwrap_or_default()
-                .map(PathBuf::from)
-                .collect::<Vec<_>>();
-            println!("Adding {:?}", paths);
-        }
-        Some((ext, sub_matches)) => {
-            let args = sub_matches
-                .values_of_os("")
-                .unwrap_or_default()
-                .collect::<Vec<_>>();
-            println!("Calling out to {:?} with {:?}", ext, args);
-        }
-        _ => unreachable!(), // If all subcommands are defined above, anything else is unreachabe!()
-    }
+        Some(("time", time_matches)) => {
+            let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
+            // - validar tipo
 
-    let matches2 = Command::new("notime")
-        .about("Info notime")
-        .subcommand_required(false)
-        .allow_external_subcommands(true)
-        .get_matches();
-       
-    // TODO
-    
-    
-    
-}
+            objeto_argumentos.primary_type = Argument_primary_type::Time;
+            objeto_argumentos.time_atr = unidad_tiempo;
+            println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
+            println!("🐜 DEBUGGING -->  primary_type: {:?} , time_atr: {:?} 🐜", objeto_argumentos.primary_type, objeto_argumentos.time_atr);
+        }
+
+        Some(("notime", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
+            objeto_argumentos.primary_type = Argument_primary_type::Notime;
+            println!("✍️ Starting registry with no time limit ✍️");
+        }
+
+        Some(("info", cosa)) => { //cosa porque me pide una tupla, pero no hace nada
+            objeto_argumentos.primary_type = Argument_primary_type::Info;
+            println!("<INFORMACION GENERAL>");
+        }
+        
+        
+        _ => unreachable!(), 
+    }
+}  
+
