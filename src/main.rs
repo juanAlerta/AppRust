@@ -23,6 +23,7 @@ pub struct Argumento {
     dir_atr: String,
 }
 
+
 fn main() {
 
     let mut default_dir = String::from("~/Desktop"); 
