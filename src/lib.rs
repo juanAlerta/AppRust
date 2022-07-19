@@ -1,3 +1,5 @@
+mod utils;
+
 use std::ffi::CString;
 
 pub trait evec_wrapper {
