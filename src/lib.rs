@@ -1,4 +1,5 @@
 mod utils;
+mod log;
 
 use std::ffi::CString;
 
