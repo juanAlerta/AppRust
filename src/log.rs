@@ -21,9 +21,7 @@ fn log_syscall_exec(filename: &CString, argv: [&CString], envp: [&CString]) {
 
     let mut logMessage: &CString;
     // let configuracion: Objeto Configuracion
-    // tooth_init() ??
-
-    
+    // tooth_init() 
 
     
 }
