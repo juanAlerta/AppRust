@@ -42,7 +42,7 @@ fn main() {
         .arg_required_else_help(true)
         .allow_external_subcommands(true)
         .allow_invalid_utf8_for_external_subcommands(true)
-        .subcommand(
+        .subcommand( 
             // time
             Command::new("time")
                 .short_flag('t')
