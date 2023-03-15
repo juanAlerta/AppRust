@@ -5,7 +5,7 @@ struct ProcessParams {
     argv: Vec<CString>,
     env: Vec<CString>
 }
-
+/* 
 fn log_syscall_execv(filename: &CString, argv: Vec<&CString>) {
 
     let envp: Vec<&CString>;
@@ -25,3 +25,5 @@ fn log_syscall_exec(filename: &CString, argv: [&CString], envp: [&CString]) {
 
     
 }
+
+*/
