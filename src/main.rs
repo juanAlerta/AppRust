@@ -1,6 +1,8 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
 
+mod info_process_proc;
+
 #[derive(Debug)]
 enum Argument_primary_type {
     Time,
@@ -77,6 +79,7 @@ fn main() {
     match matches.subcommand() {
         Some(("time", time_matches)) => {
             let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
+            
             // - validar tipo
 
             objeto_argumentos.primary_type = Argument_primary_type::Time;
@@ -94,7 +97,10 @@ fn main() {
             objeto_argumentos.primary_type = Argument_primary_type::Info;
             println!("<INFORMACION GENERAL>");
         }
-        
+
+        Some(("pruebas", cosa)) => {
+            info_process_proc::proc_data();
+        }
         
         _ => unreachable!(), 
     }

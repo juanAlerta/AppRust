@@ -10,3 +10,4 @@ clap = { version = "3.1.2", features = ["derive"] }
 log = "0.4"
 chrono = "0.4"
 json = "0.12.4"
+procfs = "0.15.1"

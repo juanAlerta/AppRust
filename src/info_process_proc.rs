@@ -2,7 +2,7 @@ use std::fs;
 use std::path::Path;
 use procfs::process::Process;
 
-fn proc_data() {
+pub fn proc_data() {
     let proc_path = Path::new("/proc");
     for entry in fs::read_dir(proc_path).expect("Fallo al leer el directorio /proc") {
         if let Ok(entry) = entry {
@@ -17,3 +17,5 @@ fn proc_data() {
         }
     }
 }
+
+
