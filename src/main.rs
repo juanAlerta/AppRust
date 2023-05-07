@@ -99,7 +99,7 @@ fn main() {
         }
 
         Some(("pruebas", cosa)) => {
-            info_process_proc::proc_data();
+            info_process_proc::process_list();
         }
         
         _ => unreachable!(), 
