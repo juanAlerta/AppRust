@@ -21,7 +21,7 @@ pub struct Argumento {
     primary_type: Argument_primary_type,
     secundary_type: Argument_secundary_type,
     extra_type: Argument_secundary_type,
-    time_atr: u16,
+    time_atr: u32,
     dir_atr: String,
 }
 
@@ -78,7 +78,7 @@ fn main() {
 
     match matches.subcommand() {
         Some(("time", time_matches)) => {
-            let unidad_tiempo:u16 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
+            let unidad_tiempo:u32 = time_matches.value_of("UNIDAD_TIEMPO").expect("required").parse().unwrap();
             
             // - validar tipo
 

@@ -14,11 +14,11 @@ pub fn process_list() {
 
     let mut proc_info =  ProcInfo {
         num_active_process: 0,
-        process_list: Vec::new(),
+        process_list: Vec::new()
     };
 
-    proc_info.process_list.push(-1);
-    let mut i = 0;
+    proc_info.process_list.push(-1); // Cuando entra al for el proceso -1 es sustituido
+    println!("🧙🧙🧙 {:?}",  proc_info.process_list);
 
     let proc_path = Path::new("/proc");
 
@@ -29,8 +29,7 @@ pub fn process_list() {
                 if let Ok(pid) = path.file_name().unwrap().to_str().unwrap().parse::<i32>() {
                     if let Ok(process) = Process::new(pid) {
 
-                        proc_info.process_list[proc_info.num_active_process] = pid;  
-                        print!("tamman = {:?}\t",proc_info.process_list.len());
+                        proc_info.process_list.insert(proc_info.num_active_process, pid);
                         proc_info.num_active_process += 1;
                         
                         print!("{:?}\t", process.pid);
@@ -40,7 +39,7 @@ pub fn process_list() {
         }
     }
 
-    println!("ActiveProcess: {:?}",  proc_info.num_active_process);
+    println!("\n🧙🧙🧙 {:?}",  proc_info.num_active_process);
     println!("process_list: {:?}",  proc_info.process_list);
 
 }
