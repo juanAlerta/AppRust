@@ -4,15 +4,40 @@ use std::path::{Path, PathBuf};
 use clap::Error;
 use procfs::process::Process;
 
-pub struct ProcInfo {
+struct ProcData {
     num_active_process: usize,
     pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
 }
 
+impl ProcData {
+    
+    // Constructor
+    fn new() -> Self {
+        Self { //puede que sea ProcData
+            num_active_process: 0,
+            pid_list: Vec::new(),
+        }
+    }
+
+    fn get_pid_list(&self) -> &Vec<i32> {
+        &self.pid_list
+    }
+
+    fn get_num_active_process(&self) -> &usize {
+        &self.num_active_process
+    }
+
+    fn set_pid_list(&mut self, new_pid_list: Vec<i32>) {
+        self.pid_list = new_pid_list
+    }
+
+}
+
+
 // Método que lista los procesos que hay actios, listando las caprtas con nombre un entero en /proc
 pub fn process_list() {
 
-    let mut proc_info =  ProcInfo {
+    let mut proc_info =  ProcData {
         num_active_process: 0,
         pid_list: Vec::new()
     };
@@ -27,13 +52,8 @@ pub fn process_list() {
             let path = entry.path();
             if path.is_dir() {
                 if let Ok(pid) = path.file_name().unwrap().to_str().unwrap().parse::<i32>() {
-                    //if let Ok(process) = Process::new(pid) {
-
                         proc_info.pid_list.insert(proc_info.num_active_process, pid);
                         proc_info.num_active_process += 1;
-                        
-                        // print!("{:?}\t", process.pid);
-                    
                 }   
             } 
         }
@@ -47,26 +67,7 @@ pub fn process_list() {
 
 pub fn compare_proc_dir(){
 
-    let aux_pid_list:Vec<i32> = Vec::new();
-
-    let proc_path = Path::new("/proc");
-
-    for entry in fs::read_dir(proc_path).expect("Can't access to /proc.") {
-        if let Ok(entry) = entry {
-            let path = entry.path();
-            if path.is_dir() {
-                if let Ok(pid) = path.file_name().unwrap().to_str().unwrap().parse::<i32>() {
-                    //if let Ok(process) = Process::new(pid) {
-
-                        proc_info.pid_list.insert(proc_info.num_active_process, pid);
-                        proc_info.num_active_process += 1;
-                        
-                        // print!("{:?}\t", process.pid);
-                    
-                }       
-            } 
-        }
-    }
+    
     //vector de procesos nuevos
     //vector de procesos viejos
     //se comparan los vectores y se saca el proceso diferente --> Se pasa el proceso a process_data() y se obtiene la info
