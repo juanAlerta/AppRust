@@ -4,6 +4,10 @@ use std::path::{Path, PathBuf};
 use clap::Error;
 use procfs::process::Process;
 
+/* Estructura de datos ProcData                             */
+/* Describe los datos recopilados del directorio /proc      */
+/* en el que se almacena información sobre los procesos     */
+/* que existen en tiempo de ejecución.                      */
 struct ProcData {
     num_active_process: usize,
     pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
@@ -12,7 +16,7 @@ struct ProcData {
 impl ProcData {
     
     // Constructor
-    fn new() -> Self {
+    fn new(num_active_process: usize, pid_list: Vec<i32>) -> Self {
         Self { //puede que sea ProcData
             num_active_process: 0,
             pid_list: Vec::new(),
@@ -30,9 +34,7 @@ impl ProcData {
     fn set_pid_list(&mut self, new_pid_list: Vec<i32>) {
         self.pid_list = new_pid_list
     }
-
 }
-
 
 // Método que lista los procesos que hay actios, listando las caprtas con nombre un entero en /proc
 pub fn process_list() {
@@ -41,6 +43,8 @@ pub fn process_list() {
         num_active_process: 0,
         pid_list: Vec::new()
     };
+
+    let proc_data: ProcData = ProcData::new()
 
     proc_info.pid_list.push(-1); // Cuando entra al for el proceso -1 es sustituido
     println!("🧙🧙🧙 {:?}",  proc_info.pid_list);
