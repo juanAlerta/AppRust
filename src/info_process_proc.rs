@@ -44,7 +44,7 @@ pub fn process_list() {
         pid_list: Vec::new()
     };
 
-    let proc_data: ProcData = ProcData::new()
+    let proc_data: ProcData = ProcData::new(0, vec![0]);
 
     proc_info.pid_list.push(-1); // Cuando entra al for el proceso -1 es sustituido
     println!("🧙🧙🧙 {:?}",  proc_info.pid_list);
