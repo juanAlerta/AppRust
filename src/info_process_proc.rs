@@ -22,7 +22,7 @@ impl ProcData {
             pid_list: Vec::new(),
         }
     }
-
+    /* 
     fn get_pid_list(&self) -> &Vec<i32> {
         &self.pid_list
     }
@@ -30,10 +30,11 @@ impl ProcData {
     fn get_num_active_process(&self) -> &usize {
         &self.num_active_process
     }
-
+    */
     fn set_pid_list(&mut self, new_pid_list: Vec<i32>) {
         self.pid_list = new_pid_list
     }
+    
 }
 
 // Método que lista los procesos que hay activos, listando las caprtas con nombre un entero en /proc
@@ -64,12 +65,14 @@ pub fn process_list() -> ProcData {
 }
 
 
-pub fn compare_proc_dir(){
+pub fn compare_proc_dir(old_proc_data: ProcData) -> bool{
 
     
     //vector de procesos nuevos
     //vector de procesos viejos
     //se comparan los vectores y se saca el proceso diferente --> Se pasa el proceso a process_data() y se obtiene la info
+    
+    true
 }
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
