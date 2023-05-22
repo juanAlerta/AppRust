@@ -37,17 +37,11 @@ impl ProcData {
 }
 
 // Método que lista los procesos que hay activos, listando las caprtas con nombre un entero en /proc
-pub fn process_list() {
+pub fn process_list() -> ProcData {
 
-    let mut proc_info =  ProcData {
-        num_active_process: 0,
-        pid_list: Vec::new()
-    };
+    let mut proc_data: ProcData = ProcData::new(0, vec![0]);
 
-    let proc_data: ProcData = ProcData::new(0, vec![0]);
-
-    proc_info.pid_list.push(-1); // Cuando entra al for el proceso -1 es sustituido
-    println!("🧙🧙🧙 {:?}",  proc_info.pid_list);
+    println!("🧙🧙🧙 {:?}",  proc_data.pid_list);
 
     let proc_path = Path::new("/proc");
 
@@ -56,16 +50,17 @@ pub fn process_list() {
             let path = entry.path();
             if path.is_dir() {
                 if let Ok(pid) = path.file_name().unwrap().to_str().unwrap().parse::<i32>() {
-                        proc_info.pid_list.insert(proc_info.num_active_process, pid);
-                        proc_info.num_active_process += 1;
+                    proc_data.pid_list.insert(proc_data.num_active_process, pid);
+                    proc_data.num_active_process += 1;
                 }   
             } 
         }
     }
 
-    println!("\n🧙🧙🧙 {:?}",  proc_info.num_active_process);
-    println!("process_list: {:?}",  proc_info.pid_list);
+    println!("\n🧙🧙🧙 {:?}",  proc_data.num_active_process);
+    println!("process_list: {:?}",  proc_data.pid_list);
 
+    proc_data // return
 }
 
 
