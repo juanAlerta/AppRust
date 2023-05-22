@@ -36,7 +36,7 @@ impl ProcData {
     }
 }
 
-// Método que lista los procesos que hay actios, listando las caprtas con nombre un entero en /proc
+// Método que lista los procesos que hay activos, listando las caprtas con nombre un entero en /proc
 pub fn process_list() {
 
     let mut proc_info =  ProcData {
