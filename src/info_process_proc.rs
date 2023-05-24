@@ -2,13 +2,13 @@ use std::fs::DirEntry;
 use std::{fs, path};
 use std::path::{Path, PathBuf};
 use clap::Error;
-use procfs::process::Process;
+//use procfs::process::Process;
 
 /* Estructura de datos ProcData                             */
 /* Describe los datos recopilados del directorio /proc      */
 /* en el que se almacena información sobre los procesos     */
 /* que existen en tiempo de ejecución.                      */
-struct ProcData {
+pub struct ProcData {
     num_active_process: usize,
     pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
 }
@@ -65,15 +65,33 @@ pub fn process_list() -> ProcData {
 }
 
 
-pub fn compare_proc_dir(old_proc_data: ProcData) -> bool{
+pub fn compare_proc_dir(old_vector: ProcData) -> ProcData{
 
-    
-    //vector de procesos nuevos
-    //vector de procesos viejos
+    let mut new_proc_data: ProcData = ProcData::new(0, vec![0]);
+    let old_proc_data = old_vector;
     //se comparan los vectores y se saca el proceso diferente --> Se pasa el proceso a process_data() y se obtiene la info
     
-    true
+    
 }
+
+// ejemplo comparacion de vectores
+fn ejemplo() {
+    let original_vector = vec![1, 2, 3, 4, 5];
+    let new_elements = vec![2, 4, 6];
+
+    let diff_vector: Vec<Option<i32>> = original_vector.iter().map(|&x| {
+        if new_elements.contains(&x) {
+            None
+        } else {
+            Some(x)
+        }
+    }).collect();
+
+    println!("Original Vector: {:?}", original_vector);
+    println!("New Elements: {:?}", new_elements);
+    println!("Diff Vector: {:?}", diff_vector);
+}
+
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 pub fn process_data(){
