@@ -1,5 +1,6 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
+use info_process_proc::ProcData;
 
 mod info_process_proc;
 
@@ -100,6 +101,7 @@ fn main() {
 
         Some(("pruebas", cosa)) => {
             info_process_proc::process_list();
+            info_process_proc::compare_proc_dir(vec![1, 7, 8, 10, 181]);
         }
         
         _ => unreachable!(), 

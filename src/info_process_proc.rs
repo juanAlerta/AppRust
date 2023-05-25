@@ -16,10 +16,10 @@ pub struct ProcData {
 impl ProcData {
     
     // Constructor
-    fn new(num_active_process: usize, pid_list: Vec<i32>) -> Self {
+    pub fn new(num_active_process: usize, pid_list: Vec<i32>) -> Self {
         Self { //puede que sea ProcData
-            num_active_process: 0,
-            pid_list: Vec::new(),
+            num_active_process: num_active_process,
+            pid_list: pid_list,
         }
     }
     /* 
@@ -65,13 +65,22 @@ pub fn process_list() -> ProcData {
 }
 
 
-pub fn compare_proc_dir(old_vector: ProcData) -> ProcData{
+pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 
-    let mut new_proc_data: ProcData = ProcData::new(0, vec![0]);
-    let old_proc_data = old_vector;
-    //se comparan los vectores y se saca el proceso diferente --> Se pasa el proceso a process_data() y se obtiene la info
+    let old_proc_data_vec = old_vector.pid_list; // procesos de un momento anterior (hace 3'')
+    let mut new_proc_data_vec: Vec<i32> = process_list().pid_list; // procesos en este momento exacto
+
+    let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
+        if new_proc_data_vec.contains(&x) {
+            None
+        } else {
+            Some(x)
+        }
+    }).collect();
     
+    println!("🧝🏽Procesos diferentes: {:?}",  diff_process);
     
+    diff_process
 }
 
 // ejemplo comparacion de vectores
