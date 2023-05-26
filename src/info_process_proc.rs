@@ -67,8 +67,8 @@ pub fn process_list() -> ProcData {
 
 pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 
-    let old_proc_data_vec = old_vector.pid_list; // procesos de un momento anterior (hace 3'')
-    let mut new_proc_data_vec: Vec<i32> = process_list().pid_list; // procesos en este momento exacto
+    let old_proc_data_vec = old_vector; // procesos de un momento anterior (hace 3'')
+    let new_proc_data_vec: Vec<i32> = process_list().pid_list; // procesos en este momento exacto
 
     let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
         if new_proc_data_vec.contains(&x) {
@@ -78,7 +78,7 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
         }
     }).collect();
     
-    println!("🧝🏽Procesos diferentes: {:?}",  diff_process);
+    println!("🧝 Procesos diferentes: {:?}",  diff_process);
     
     diff_process
 }
