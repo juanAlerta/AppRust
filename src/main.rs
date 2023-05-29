@@ -102,6 +102,8 @@ fn main() {
         Some(("pruebas", cosa)) => {
             info_process_proc::process_list();
             info_process_proc::compare_proc_dir(vec![1, 7, 8, 10, 181]);
+
+            info_process_proc::process_data(1);
         }
         
         _ => unreachable!(), 

@@ -87,27 +87,27 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
     diff_process
 }
 
-// ejemplo comparacion de vectores
-fn ejemplo() {
-    let original_vector = vec![1, 2, 3, 4, 5];
-    let new_elements = vec![2, 4, 6];
-
-    let diff_vector: Vec<Option<i32>> = original_vector.iter().map(|&x| {
-        if new_elements.contains(&x) {
-            None
-        } else {
-            Some(x)
-        }
-    }).collect();
-
-    println!("Original Vector: {:?}", original_vector);
-    println!("New Elements: {:?}", new_elements);
-    println!("Diff Vector: {:?}", diff_vector);
-}
-
-
 // Método que lee el contenido de la carpeta proceso y saca información de él.
-pub fn process_data(){
+pub fn process_data(pid: i32){
+
+    let proc_path = Path::new("/proc").join(pid.to_string());
+
+    if proc_path.exists() && proc_path.is_dir() {
+        // Acceder a los archivos relevantes en el directorio del proceso
+        let cmdline_path = proc_path.join("cmdline");
+        let status_path = proc_path.join("status");
+
+        // Leer el contenido de los archivos
+        if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
+            println!("Command line: {}", cmdline_content);
+        }
+
+        if let Ok(status_content) = fs::read_to_string(status_path) {
+            println!("Status: {}", status_content);
+        }
+    } else {
+        println!("No se encontró el proceso con PID {}", pid);
+    }
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
