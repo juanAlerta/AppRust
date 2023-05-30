@@ -11,3 +11,19 @@ En resumen, si quieres obtener información sobre un proceso recién creado en L
 - Sí, cuando se ejecuta un programa como Spotify en Linux, se utiliza la llamada al sistema execv() o alguna variante de esta función para cargar y ejecutar el programa en el proceso actual.
 En este caso, cuando se ejecuta el comando spotify en la terminal de Linux, se realiza una llamada al sistema execv() que carga el archivo ejecutable de Spotify en la memoria y lo ejecuta dentro del proceso actual. La función execv() se encarga de reemplazar el programa actual en memoria con el archivo ejecutable de Spotify.
 Es importante destacar que execv() no es la única forma de ejecutar un programa en Linux. También se puede usar la función fork() para crear un nuevo proceso y luego llamar a execv() en ese proceso para ejecutar un nuevo programa. Sin embargo, en este caso específico de Spotify, se utiliza execv() para cargar y ejecutar el programa en el mismo proceso actual.
+
+- Uso de /proc:
+El directorio /proc en Linux proporciona información detallada sobre los procesos en ejecución en el sistema. A continuación se muestra una lista de algunos de los archivos y directorios relevantes que puedes encontrar en /proc para obtener información sobre un proceso:
+
+    /proc/<PID>/cmdline: Contiene la línea de comandos utilizada para ejecutar el proceso.
+    /proc/<PID>/cwd: Representa el directorio de trabajo actual del proceso.
+    /proc/<PID>/environ: Contiene el entorno del proceso, es decir, las variables de entorno.
+    /proc/<PID>/exe: Es un enlace simbólico que apunta al ejecutable del proceso.
+    /proc/<PID>/status: Proporciona información detallada sobre el estado del proceso, como el ID de proceso, el ID de grupo, el ID de sesión, el estado de ejecución, el uso de la CPU y la memoria, entre otros.
+    /proc/<PID>/stat: Contiene estadísticas del proceso, como el ID de proceso, el estado, el uso de la CPU, entre otros.
+    /proc/<PID>/fd: Es un directorio que contiene enlaces simbólicos a los descriptores de archivo abiertos por el proceso.
+    /proc/<PID>/maps: Muestra el mapeo de memoria del proceso, incluyendo las regiones de memoria asignadas y sus permisos.
+    /proc/<PID>/mounts: Proporciona información sobre los sistemas de archivos montados por el proceso.
+    /proc/<PID>/io: Contiene estadísticas de E/S del proceso, como la cantidad de lecturas y escrituras realizadas.
+
+Estos son solo algunos ejemplos de los archivos y directorios disponibles en /proc que puedes utilizar para obtener información sobre un proceso en particular. Puedes explorar más en detalle la estructura y contenido de /proc para obtener información específica que necesites para tu caso de uso. Recuerda que algunos archivos pueden requerir permisos especiales para acceder a su contenido.
