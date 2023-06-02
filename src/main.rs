@@ -3,6 +3,7 @@ use clap::{Arg, Command, arg};
 use info_process_proc::ProcData;
 
 mod info_process_proc;
+mod log;
 
 #[derive(Debug)]
 enum Argument_primary_type {
