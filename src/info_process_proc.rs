@@ -1,7 +1,8 @@
 use std::fs::DirEntry;
 use std::{fs, path};
 use std::path::{Path, PathBuf};
-use clap::Error;
+use std::thread;
+use std::time::Duration;
 //use procfs::process::Process;
 
 /* Estructura de datos ProcData                             */
@@ -72,6 +73,8 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 
     //let mut value: i32;
 
+    thread::sleep(Duration::from_secs(3)); //Espera en comrobacion, esto no debería ir aquí
+
     let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
         if new_proc_data_vec.contains(&x) {
             None
@@ -111,6 +114,7 @@ pub fn process_data(pid: i32){
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
+
 
 
 
