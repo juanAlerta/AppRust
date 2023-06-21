@@ -38,6 +38,12 @@ impl ProcData {
     
 }
 
+struct ProcessInfo {
+    id: i32, // pid
+    cmd_line: String, // comando con el que se ha lanzado
+    environ: String, // variables de entorno
+}
+
 // Método que lista los procesos que hay activos, listando las caprtas con nombre un entero en /proc
 pub fn process_list() -> ProcData {
 
@@ -73,7 +79,7 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 
     //let mut value: i32;
 
-    thread::sleep(Duration::from_secs(3)); //Espera en comrobacion, esto no debería ir aquí
+    // thread::sleep(Duration::from_secs(3)); //Espera en comrobacion, esto no debería ir aquí
 
     let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
         if new_proc_data_vec.contains(&x) {
@@ -91,7 +97,8 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 }
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
-pub fn process_data(pid: i32){
+// Devuelve un objeto con las caracterísicas importantes
+pub fn process_data(pid: i32) {
 
     let proc_path = Path::new("/proc").join(pid.to_string());
 
@@ -99,18 +106,24 @@ pub fn process_data(pid: i32){
         // Acceder a los archivos relevantes en el directorio del proceso
         let cmdline_path = proc_path.join("cmdline");
         let status_path = proc_path.join("status");
+        let environ_path = proc_path.join("environ");
 
         // Leer el contenido de los archivos
         if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
-            println!("Command line: {}", cmdline_content);
+            println!("🤠 Command line: {}", cmdline_content);
         }
 
         if let Ok(status_content) = fs::read_to_string(status_path) {
-            println!("Status: {}", status_content);
+            println!("🤠 Status: {}", status_content);
         }
-    } else {
-        println!("No se encontró el proceso con PID {}", pid);
-    }
+
+        if let Ok(environ_content) = fs::read_to_string(environ_path) {
+            println!("🤠 Environ: {}", environ_content);
+        }
+
+        } else {
+            println!("No se encontró el proceso con PID {}", pid);
+        }
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
