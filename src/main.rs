@@ -32,6 +32,9 @@ fn main() {
 
     let mut default_dir = String::from("~/Desktop"); 
 
+    //let mut proc_data1: ProcData = ProcData::new(0, vec![0]);
+    //proc_data1 = info_process_proc::process_list();
+
     let mut objeto_argumentos = Argumento {
         primary_type: Argument_primary_type::Notime,
         secundary_type: Argument_secundary_type::Zero,
@@ -101,9 +104,9 @@ fn main() {
         }
 
         Some(("pruebas", cosa)) => {
-            info_process_proc::process_list();
-            info_process_proc::compare_proc_dir(vec![1, 7, 8, 10, 181]);
-
+            //info_process_proc::process_list();
+            //info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list);
+            print!("\nProcesos diferentes{:?}",info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list));
             info_process_proc::process_data(1);
         }
         

@@ -10,8 +10,8 @@ use std::time::Duration;
 /* en el que se almacena información sobre los procesos     */
 /* que existen en tiempo de ejecución.                      */
 pub struct ProcData {
-    num_active_process: usize,
-    pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
+    pub num_active_process: usize,
+    pub pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
 }
 
 impl ProcData {
@@ -71,15 +71,16 @@ pub fn process_list() -> ProcData {
     proc_data // return
 }
 
-
+/* 
 pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
+
+    thread::sleep(Duration::from_secs(4)); //Espera en comrobacion, esto no debería ir aquí
+
 
     let old_proc_data_vec = old_vector; // procesos de un momento anterior (hace 3'')
     let new_proc_data_vec: Vec<i32> = process_list().pid_list; // procesos en este momento exacto
 
     //let mut value: i32;
-
-    // thread::sleep(Duration::from_secs(3)); //Espera en comrobacion, esto no debería ir aquí
 
     let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
         if new_proc_data_vec.contains(&x) {
@@ -95,6 +96,27 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
     
     diff_process
 }
+*/
+
+
+pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
+
+    thread::sleep(Duration::from_secs(4)); //Espera en comrobacion, esto no debería ir aquí
+
+    let new_vector: Vec<i32> = process_list().pid_list;
+
+    let diff_vec: Vec<i32> = old_vector
+        .iter()
+        .chain(new_vector.iter())
+        .filter(|&item| !old_vector.contains(item) || !new_vector.contains(item))
+        .cloned()
+        .collect();
+
+    diff_vec
+}
+
+
+
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 // Devuelve un objeto con las caracterísicas importantes
@@ -110,15 +132,15 @@ pub fn process_data(pid: i32) {
 
         // Leer el contenido de los archivos
         if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
-            println!("🤠 Command line: {}", cmdline_content);
+            println!("\n🤠 Command line: {}", cmdline_content);
         }
 
         if let Ok(status_content) = fs::read_to_string(status_path) {
-            println!("🤠 Status: {}", status_content);
+            println!("\n🤠 Status: {}", status_content);
         }
 
         if let Ok(environ_content) = fs::read_to_string(environ_path) {
-            println!("🤠 Environ: {}", environ_content);
+            println!("\n🤠 Environ: {}", environ_content);
         }
 
         } else {
