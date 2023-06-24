@@ -120,9 +120,15 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 // Devuelve un objeto con las caracterísicas importantes
-pub fn process_data(pid: i32) {
+pub fn process_data(proc_list: Vec<i32>) {
 
-    let proc_path = Path::new("/proc").join(pid.to_string());
+    let mut pid = 0;
+
+    let mut proc_path = Path::new("/proc").join(pid.to_string());
+
+    for element in &proc_list {
+
+    }
 
     if proc_path.exists() && proc_path.is_dir() {
         // Acceder a los archivos relevantes en el directorio del proceso
@@ -145,7 +151,7 @@ pub fn process_data(pid: i32) {
 
         } else {
             println!("No se encontró el proceso con PID {}", pid);
-        }
+    }
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
