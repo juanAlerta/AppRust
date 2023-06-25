@@ -106,8 +106,9 @@ fn main() {
         Some(("pruebas", cosa)) => {
             //info_process_proc::process_list();
             //info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list);
-            print!("\nProcesos diferentes{:?}",info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list));
-            info_process_proc::process_data(1);
+            let new_process_list: Vec<i32> = info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list);
+            print!("\nProcesos diferentes{:?}",new_process_list);
+            info_process_proc::process_data(new_process_list);
         }
         
         _ => unreachable!(), 

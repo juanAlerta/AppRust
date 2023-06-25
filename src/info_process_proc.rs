@@ -120,6 +120,7 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 // Devuelve un objeto con las caracterísicas importantes
+<<<<<<< HEAD
 pub fn process_data(proc_list: Vec<i32>) {
 
     let mut pid = 0;
@@ -129,22 +130,45 @@ pub fn process_data(proc_list: Vec<i32>) {
     for element in &proc_list {
 
     }
+=======
+pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂️
 
-    if proc_path.exists() && proc_path.is_dir() {
-        // Acceder a los archivos relevantes en el directorio del proceso
-        let cmdline_path = proc_path.join("cmdline");
-        let status_path = proc_path.join("status");
-        let environ_path = proc_path.join("environ");
+    let mut pid = 0;
+>>>>>>> 6390357 (version portatil)
 
-        // Leer el contenido de los archivos
-        if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
-            println!("\n🤠 Command line: {}", cmdline_content);
+    let mut proc_path = Path::new("/proc").join(pid.to_string());
+
+    for element in &new_process { // &vector es equivalente a vector.iter()
+        pid = *element;
+        proc_path = Path::new("/proc").join(pid.to_string());
+
+        if proc_path.exists() && proc_path.is_dir() {
+            // Acceder a los archivos relevantes en el directorio del proceso
+            let cmdline_path = proc_path.join("cmdline");
+            let status_path = proc_path.join("status");
+            let environ_path = proc_path.join("environ");
+    
+            // Leer el contenido de los archivos
+            if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
+                println!("\n🤠 Command line: {}", cmdline_content);
+            }
+    
+            /* 
+            if let Ok(status_content) = fs::read_to_string(status_path) {
+                println!("\n🤠 Status: {}", status_content);
+            }
+            */
+            if let Ok(environ_content) = fs::read_to_string(environ_path) {
+                println!("\n🤠 Environ: {}", environ_content);
+            }
+            
+            } else {
+                println!("No se encontró el proceso con PID {}", pid);
         }
 
-        if let Ok(status_content) = fs::read_to_string(status_path) {
-            println!("\n🤠 Status: {}", status_content);
-        }
+    }
 
+<<<<<<< HEAD
         if let Ok(environ_content) = fs::read_to_string(environ_path) {
             println!("\n🤠 Environ: {}", environ_content);
         }
@@ -152,6 +176,8 @@ pub fn process_data(proc_list: Vec<i32>) {
         } else {
             println!("No se encontró el proceso con PID {}", pid);
     }
+=======
+>>>>>>> 6390357 (version portatil)
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
