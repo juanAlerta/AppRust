@@ -120,21 +120,11 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 // Devuelve un objeto con las caracterísicas importantes
-<<<<<<< HEAD
-pub fn process_data(proc_list: Vec<i32>) {
 
-    let mut pid = 0;
-
-    let mut proc_path = Path::new("/proc").join(pid.to_string());
-
-    for element in &proc_list {
-
-    }
-=======
 pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂️
 
     let mut pid = 0;
->>>>>>> 6390357 (version portatil)
+
 
     let mut proc_path = Path::new("/proc").join(pid.to_string());
 
@@ -165,19 +155,7 @@ pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂�
             } else {
                 println!("No se encontró el proceso con PID {}", pid);
         }
-
     }
-
-<<<<<<< HEAD
-        if let Ok(environ_content) = fs::read_to_string(environ_path) {
-            println!("\n🤠 Environ: {}", environ_content);
-        }
-
-        } else {
-            println!("No se encontró el proceso con PID {}", pid);
-    }
-=======
->>>>>>> 6390357 (version portatil)
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }
