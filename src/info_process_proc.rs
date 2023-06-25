@@ -121,9 +121,7 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 // Método que lee el contenido de la carpeta proceso y saca información de él.
 // Devuelve un objeto con las caracterísicas importantes
 
-pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂️
-
-    
+pub fn process_data(new_process: Vec<i32>) { 
 
     for element in &new_process { // &vector es equivalente a vector.iter()
         
