@@ -123,14 +123,11 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
 pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂️
 
-    let mut pid = 0;
-
-
-    let mut proc_path = Path::new("/proc").join(pid.to_string());
+    
 
     for element in &new_process { // &vector es equivalente a vector.iter()
-        pid = *element;
-        proc_path = Path::new("/proc").join(pid.to_string());
+        
+        let mut proc_path = Path::new("/proc").join(element.to_string());
 
         if proc_path.exists() && proc_path.is_dir() {
             // Acceder a los archivos relevantes en el directorio del proceso
@@ -153,7 +150,7 @@ pub fn process_data(new_process: Vec<i32>) { // 🧟‍♂️ARREGLAR🧟‍♂�
             }
             
             } else {
-                println!("No se encontró el proceso con PID {}", pid);
+                println!("No se encontró el proceso con PID {}", element);
         }
     }
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
