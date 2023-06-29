@@ -65,8 +65,8 @@ pub fn process_list() -> ProcData {
         }
     }
 
-    println!("\n🧙🧙🧙 {:?}",  proc_data.num_active_process);
-    println!("process_list: {:?}",  proc_data.pid_list);
+    //println!("\n🧙🧙🧙 {:?}",  proc_data.num_active_process);
+    //println!("process_list: {:?}",  proc_data.pid_list);
 
     proc_data // return
 }
@@ -101,7 +101,7 @@ pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
 
 pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
-    thread::sleep(Duration::from_secs(4)); //Espera en comrobacion, esto no debería ir aquí
+    thread::sleep(Duration::from_secs(1)); //Espera en comrobacion, esto no debería ir aquí
 
     let new_vector: Vec<i32> = process_list().pid_list;
 
