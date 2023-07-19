@@ -4,9 +4,8 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
 
-mod log_file;
-
-
+use std::fs::OpenOptions;
+use std::io::Write;
 
 /* Estructura de datos ProcData                             */
 /* Describe los datos recopilados del directorio /proc      */
@@ -110,8 +109,9 @@ pub fn process_data(new_process: Vec<i32>) {
             // Leer el contenido de los archivos
             if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
                 println!("\n🤠 Command line: {}", cmdline_content);
-                let output = format!("Date: {}\n{}", chrono::Local::now(), cmdline_content);
-                
+                let output = format!("Date: {}\t{}", chrono::Local::now(), cmdline_content);
+                println!("output 🤓: {}",output);
+                write_to_log(&output);
             }
     
             /* 
@@ -133,6 +133,16 @@ pub fn process_data(new_process: Vec<i32>) {
     // se formatea la info a json y se añade al log
 }
 
+
+pub fn write_to_log(output: &str) -> std::io::Result<()> {
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open("thoots.log")?; // Nombre del archivo de registro
+
+    writeln!(file, "{}", output)?; // Escribir la salida en el archivo
+    Ok(())
+}
 
 
 

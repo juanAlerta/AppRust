@@ -2,7 +2,7 @@ use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
 
 mod info_process_proc;
-mod log_file;
+mod write_in_file;
 
 #[derive(Debug)]
 enum Argument_primary_type {
