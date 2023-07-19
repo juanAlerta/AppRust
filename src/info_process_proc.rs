@@ -3,12 +3,16 @@ use std::{fs, path};
 use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
-//use procfs::process::Process;
+
+mod log_file;
+
+
 
 /* Estructura de datos ProcData                             */
 /* Describe los datos recopilados del directorio /proc      */
 /* en el que se almacena información sobre los procesos     */
 /* que existen en tiempo de ejecución.                      */
+
 pub struct ProcData {
     pub num_active_process: usize,
     pub pid_list: Vec<i32>, // Lista de procesos obtenidos de la lectura de /proc
@@ -65,38 +69,8 @@ pub fn process_list() -> ProcData {
         }
     }
 
-    //println!("\n🧙🧙🧙 {:?}",  proc_data.num_active_process);
-    //println!("process_list: {:?}",  proc_data.pid_list);
-
     proc_data // return
 }
-
-/* 
-pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<Option<i32>>{
-
-    thread::sleep(Duration::from_secs(4)); //Espera en comrobacion, esto no debería ir aquí
-
-
-    let old_proc_data_vec = old_vector; // procesos de un momento anterior (hace 3'')
-    let new_proc_data_vec: Vec<i32> = process_list().pid_list; // procesos en este momento exacto
-
-    //let mut value: i32;
-
-    let diff_process: Vec<Option<i32>> = old_proc_data_vec.iter().map(|&x| {
-        if new_proc_data_vec.contains(&x) {
-            None
-        } else {
-            Some(x)
-            
-
-        }
-    }).collect();
-    
-    println!("🧝 Procesos diferentes: {:?}",  diff_process);
-    
-    diff_process
-}
-*/
 
 
 pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
@@ -136,6 +110,8 @@ pub fn process_data(new_process: Vec<i32>) {
             // Leer el contenido de los archivos
             if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
                 println!("\n🤠 Command line: {}", cmdline_content);
+                let output = format!("Date: {}\n{}", chrono::Local::now(), cmdline_content);
+                
             }
     
             /* 
@@ -151,6 +127,8 @@ pub fn process_data(new_process: Vec<i32>) {
                 println!("No se encontró el proceso con PID {}", element);
         }
     }
+
+    
     // se saca la info del proceso nuevo obtenido de compare_proc_dir()
     // se formatea la info a json y se añade al log
 }

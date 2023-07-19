@@ -1,9 +1,8 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
-use info_process_proc::ProcData;
 
 mod info_process_proc;
-mod log;
+mod log_file;
 
 #[derive(Debug)]
 enum Argument_primary_type {
