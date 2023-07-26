@@ -105,10 +105,13 @@ pub fn process_data(new_process: Vec<i32>) {
             let cmdline_path = proc_path.join("cmdline");
             let status_path = proc_path.join("status");
             let environ_path = proc_path.join("environ");
+            let stat_path = proc_path.join("stat");
     
             // Leer el contenido de los archivos
             if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
                 println!("\n🤠 Command line: {}", cmdline_content);
+
+                //Sacar esto de aquí, guardar cada dato en una variable que luego se copie en el log
                 let output = format!("Date: {}\t{}", chrono::Local::now(), cmdline_content);
                 println!("output 🤓: {}",output);
                 write_to_log(&output);
@@ -124,7 +127,7 @@ pub fn process_data(new_process: Vec<i32>) {
             }
             
             } else {
-                println!("No se encontró el proceso con PID {}", element);
+                println!("No process with PID {}", element);
         }
     }
 
