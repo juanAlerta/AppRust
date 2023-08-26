@@ -114,7 +114,7 @@ pub fn process_data(new_process: Vec<i32>) {
                 //Sacar esto de aquí, guardar cada dato en una variable que luego se copie en el log
                 let output = format!("Date: {}\t{}", chrono::Local::now(), cmdline_content);
                 println!("output 🤓: {}",output);
-                write_to_log(&output);
+                write_to_log(&output); // Habría que sacar esto de aquí
             }
     
             /* 
