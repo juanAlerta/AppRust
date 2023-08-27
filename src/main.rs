@@ -41,8 +41,8 @@ fn main() {
         dir_atr: default_dir,
     };
 
-    let matches = Command::new("tooth")
-        .about("Tooth is a forensic computer analysis wich notes the programs running on your operative system.\nDocumentation: https://github.com/juanAlerta/AppRust")
+    let matches = Command::new("\n_____ _                 _   \n|_   _| |__   ___   ___ | |_ \n  | | | '_ \\ / _ \\ / _ \\| __|\n  | | | | | | (_) | (_) | |_ \n  |_| |_| |_|\\___/ \\___/ \\__|\n")
+        .about("\nTooth is a forensic computer analysis wich notes the programs running on your operative system.\nDocumentation: https://github.com/juanAlerta/AppRust")
         .subcommand_required(true)
         .arg_required_else_help(true)
         .allow_external_subcommands(true)
