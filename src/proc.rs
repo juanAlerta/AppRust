@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
 
+
 use std::fs::OpenOptions;
 use std::io::Write;
 
@@ -47,7 +48,7 @@ struct ProcessInfo {
     environ: String, // variables de entorno
 }
 
-// Método que lista los procesos que hay activos, listando las caprtas con nombre un entero en /proc
+// Método que lista los procesos que hay activos, listando las carpetas con nombre un entero en /proc
 pub fn process_list() -> ProcData {
 
     let mut proc_data: ProcData = ProcData::new(0, vec![0]);

@@ -1,7 +1,8 @@
 use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
 
-mod info_process_proc;
+mod proc;
+mod file;
 
 #[derive(Debug)]
 enum Argument_primary_type {
@@ -105,9 +106,9 @@ fn main() {
             loop {
               //info_process_proc::process_list();
                 //info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list);
-                let new_process_list: Vec<i32> = info_process_proc::compare_proc_dir(info_process_proc::process_list().pid_list);
+                let new_process_list: Vec<i32> = proc::compare_proc_dir(proc::process_list().pid_list);
                 print!("\nProcesos diferentes{:?}",new_process_list);
-                info_process_proc::process_data(new_process_list);  
+                proc::process_data(new_process_list);  
             }
         }
         
