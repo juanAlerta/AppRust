@@ -2,7 +2,6 @@ use std::{env, num::ParseIntError};
 use clap::{Arg, Command, arg};
 
 mod proc;
-mod file;
 
 #[derive(Debug)]
 enum Argument_primary_type {

@@ -8,6 +8,7 @@ use std::time::Duration;
 use std::fs::OpenOptions;
 use std::io::Write;
 
+
 /* Estructura de datos ProcData                             */
 /* Describe los datos recopilados del directorio /proc      */
 /* en el que se almacena información sobre los procesos     */
@@ -75,7 +76,7 @@ pub fn process_list() -> ProcData {
 
 pub fn compare_proc_dir(old_vector: Vec<i32>) -> Vec<i32> {
 
-    thread::sleep(Duration::from_secs(1)); //Espera en comrobacion, esto no debería ir aquí
+    thread::sleep(Duration::from_secs(1)); 
 
     let new_vector: Vec<i32> = process_list().pid_list;
 
@@ -104,9 +105,7 @@ pub fn process_data(new_process: Vec<i32>) {
         if proc_path.exists() && proc_path.is_dir() {
             // Acceder a los archivos relevantes en el directorio del proceso
             let cmdline_path = proc_path.join("cmdline");
-            let status_path = proc_path.join("status");
             let environ_path = proc_path.join("environ");
-            let stat_path = proc_path.join("stat");
     
             // Leer el contenido de los archivos
             if let Ok(cmdline_content) = fs::read_to_string(cmdline_path) {
@@ -117,24 +116,13 @@ pub fn process_data(new_process: Vec<i32>) {
                 println!("output 🤓: {}",output);
                 write_to_log(&output); // Habría que sacar esto de aquí
             }
-    
-            /* 
-            if let Ok(status_content) = fs::read_to_string(status_path) {
-                println!("\n🤠 Status: {}", status_content);
-            }
-            */
             if let Ok(environ_content) = fs::read_to_string(environ_path) {
                 println!("\n🤠 Environ: {}", environ_content);
-            }
-            
+            }     
             } else {
                 println!("No process with PID {}", element);
         }
     }
-
-    
-    // se saca la info del proceso nuevo obtenido de compare_proc_dir()
-    // se formatea la info a json y se añade al log
 }
 
 
@@ -142,7 +130,7 @@ pub fn write_to_log(output: &str) -> std::io::Result<()> {
     let mut file = OpenOptions::new()
         .create(true)
         .append(true)
-        .open("thoots.log")?; // Nombre del archivo de registro
+        .open("tooths.log")?; // Nombre del archivo de registro
 
     writeln!(file, "{}", output)?; // Escribir la salida en el archivo
     Ok(())
