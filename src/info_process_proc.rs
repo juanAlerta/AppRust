@@ -138,10 +138,11 @@ pub fn process_data(new_process: Vec<i32>) {
 
 
 pub fn write_to_log(output: &str) -> std::io::Result<()> {
+    let file_path = "tooths.log";
     let mut file = OpenOptions::new()
         .create(true)
         .append(true)
-        .open("thoots.log")?; // Nombre del archivo de registro
+        .open(file_path)?; // Nombre del archivo de registro
 
     writeln!(file, "{}", output)?; // Escribir la salida en el archivo
     Ok(())
