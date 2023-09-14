@@ -97,7 +97,7 @@ fn main() {
             println!("✍️ Starting registry for {} minutes along ✍️", time_matches.value_of("UNIDAD_TIEMPO").expect("required"));
             println!("🐜 DEBUGGING -->  primary_type: {:?} , time_atr: {:?} 🐜", objeto_argumentos.primary_type, objeto_argumentos.time_atr);
 
-            thread::sleep(Duration::from_secs(10)); //Espera en comrobacion, esto no debería ir aquí
+            thread::sleep(Duration::from_secs(10)); //Espera en comprobacion, esto no debería ir aquí
 
         }
 
