@@ -1,0 +1,29 @@
+Respuestas en https://docs.google.com/document/d/15gdm_K0ApQXk8G19BRu0YTPg-llis4wznCY9dHqnY2A/edit?usp=sharing
+
+- Si quiero obtener información sobre un proceso recién creado tengo que fijarme en fork() o en execv()?
+- Si quieres obtener información sobre un proceso recién creado en Linux, debes fijarte en la llamada al sistema execv() en lugar de en la función fork().
+La función fork() se utiliza para crear un nuevo proceso hijo duplicando el proceso padre, pero no cambia el programa ejecutado por el proceso hijo. Por lo tanto, después de llamar a fork(), ambos procesos (padre e hijo) seguirán ejecutando el mismo programa.
+Por otro lado, la función execv() es una llamada al sistema que se utiliza para ejecutar un nuevo programa en un proceso existente. Cuando se llama a execv(), el programa actual se detiene y se reemplaza por el nuevo programa especificado en la llamada.
+Después de llamar a execv(), el proceso hijo ya no es una copia del proceso padre, sino que se ha convertido en un proceso completamente nuevo que ejecuta el nuevo programa. Por lo tanto, si quieres obtener información sobre un proceso recién creado después de llamar a execv(), debes examinar la información del proceso hijo a través de la llamada al sistema getpid() o mediante herramientas como ps o top.
+En resumen, si quieres obtener información sobre un proceso recién creado en Linux, debes fijarte en la llamada al sistema execv() en lugar de en la función fork().
+
+- Imagina esta situación: Yo tengo un equipo Linux encendido y ejecuto spotify para empezar a usarlo. ¿Se usaría en ese caso execv()?
+- Sí, cuando se ejecuta un programa como Spotify en Linux, se utiliza la llamada al sistema execv() o alguna variante de esta función para cargar y ejecutar el programa en el proceso actual.
+En este caso, cuando se ejecuta el comando spotify en la terminal de Linux, se realiza una llamada al sistema execv() que carga el archivo ejecutable de Spotify en la memoria y lo ejecuta dentro del proceso actual. La función execv() se encarga de reemplazar el programa actual en memoria con el archivo ejecutable de Spotify.
+Es importante destacar que execv() no es la única forma de ejecutar un programa en Linux. También se puede usar la función fork() para crear un nuevo proceso y luego llamar a execv() en ese proceso para ejecutar un nuevo programa. Sin embargo, en este caso específico de Spotify, se utiliza execv() para cargar y ejecutar el programa en el mismo proceso actual.
+
+- Uso de /proc:
+El directorio /proc en Linux proporciona información detallada sobre los procesos en ejecución en el sistema. A continuación se muestra una lista de algunos de los archivos y directorios relevantes que puedes encontrar en /proc para obtener información sobre un proceso:
+
+    /proc/<PID>/cmdline: Contiene la línea de comandos utilizada para ejecutar el proceso.
+    /proc/<PID>/cwd: Representa el directorio de trabajo actual del proceso.
+    /proc/<PID>/environ: Contiene el entorno del proceso, es decir, las variables de entorno.
+    /proc/<PID>/exe: Es un enlace simbólico que apunta al ejecutable del proceso.
+    /proc/<PID>/status: Proporciona información detallada sobre el estado del proceso, como el ID de proceso, el ID de grupo, el ID de sesión, el estado de ejecución, el uso de la CPU y la memoria, entre otros.
+    /proc/<PID>/stat: Contiene estadísticas del proceso, como el ID de proceso, el estado, el uso de la CPU, entre otros.
+    /proc/<PID>/fd: Es un directorio que contiene enlaces simbólicos a los descriptores de archivo abiertos por el proceso.
+    /proc/<PID>/maps: Muestra el mapeo de memoria del proceso, incluyendo las regiones de memoria asignadas y sus permisos.
+    /proc/<PID>/mounts: Proporciona información sobre los sistemas de archivos montados por el proceso.
+    /proc/<PID>/io: Contiene estadísticas de E/S del proceso, como la cantidad de lecturas y escrituras realizadas.
+
+Estos son solo algunos ejemplos de los archivos y directorios disponibles en /proc que puedes utilizar para obtener información sobre un proceso en particular. Puedes explorar más en detalle la estructura y contenido de /proc para obtener información específica que necesites para tu caso de uso. Recuerda que algunos archivos pueden requerir permisos especiales para acceder a su contenido.
